@@ -221,8 +221,8 @@ searchiq/
 
 ## Built with
 
-- [Anthropic Claude](https://anthropic.com) — claude-haiku-4-5, claude-sonnet-4-6
-- [Google Gemini](https://aistudio.google.com) — gemini-2.0-flash (optional)
-- [OpenAI](https://platform.openai.com) — gpt-4o-mini (optional)
-- [Streamlit](https://streamlit.io) — demo UI
-- [gspread](https://github.com/burnash/gspread) — Google Sheets export
+- [Anthropic Claude](https://anthropic.com) - claude-haiku-4-5, claude-sonnet-4-6
+- [Google Gemini](https://aistudio.google.com) - gemini-2.0-flash (optional)
+- [OpenAI](https://platform.openai.com) - gpt-4o-mini (optional)
+- [Streamlit](https://streamlit.io) - demo UI
+- [gspread](https://github.com/burnash/gspread) - Google Sheets export
