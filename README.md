@@ -55,7 +55,7 @@ Action: REVISE
 Role brief
     │
     ▼
-Agent 1 — Market Mapper        claude-haiku-4-5
+Agent 1 - Market Mapper        claude-haiku-4-5
     │  target companies, talent pools, comp range
     ▼
 Agent 2 — Profile Generator    claude-sonnet-4-6
@@ -77,11 +77,11 @@ outputs/day2_full_pipeline.json
 
 ---
 
-## Prompt engineering — v1 vs v2
+## Prompt engineering - v1 vs v2
 
 Every prompt is versioned in `prompts/prompts.py`. Here's what changed and why:
 
-### Agent 1 — Market Mapper
+### Agent 1 - Market Mapper
 
 **v1 problem:** returned generic companies (Goldman Sachs, McKinsey) regardless of the brief. Flat list with no prioritisation.
 
@@ -91,7 +91,7 @@ Every prompt is versioned in `prompts/prompts.py`. Here's what changed and why:
 - Added specificity constraint: *"prefer $500M–$5B companies unless brief specifies otherwise"*
 - Added `comp_range` and `search_notes` fields — v1 had no salary or focus guidance
 
-### Agent 2 — Profile Generator
+### Agent 2 - Profile Generator
 
 **v1 problem:** `why_they_fit` was generic ("strong financial background, leadership experience") — applied to every candidate identically.
 
@@ -101,7 +101,7 @@ Every prompt is versioned in `prompts/prompts.py`. Here's what changed and why:
 - Added "no vague claims" constraint with examples: *"good → Led $2.1B Series D... / bad → Extensive experience in capital markets"*
 - Passed `market_map` as context — profiles now draw from the target company list
 
-### Agent 3 — Profile Critic
+### Agent 3 - Profile Critic
 
 **v1 problem:** issues were generic strings ("limited experience"), no recommended action, no batch-level pattern detection.
 
@@ -140,12 +140,12 @@ python check_keys.py
 
 ### 3. Run the pipeline
 
-**Day 1 — Market map + profiles:**
+**Day 1 - Market map + profiles:**
 ```bash
 python run_day1.py
 ```
 
-**Day 2 — Critique + export:**
+**Day 2 - Critique + export:**
 ```bash
 python run_day2.py
 ```
