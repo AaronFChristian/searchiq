@@ -10,10 +10,10 @@ Built in 3 days as a demonstration project for SPMB's AI Data Analyst role.
 
 SearchIQ runs a 4-agent pipeline that automates the most time-intensive parts of an executive search:
 
-1. **Market Mapper (Agent 1)** — takes a role brief and returns a tiered company target list, talent pools, comp range, and search notes
-2. **Profile Generator (Agent 2)** — generates 10 realistic executive profiles drawn from the market map
-3. **Profile Critic (Agent 3)** — evaluates every profile against the brief: confidence score, action recommendation, specific issues, and a one-line tracker note
-4. **Exporter (Agent 4)** — merges profiles + critique into Google Sheets or CSV (All Profiles + Flagged tabs)
+1. **Market Mapper (Agent 1)** - takes a role brief and returns a tiered company target list, talent pools, comp range, and search notes
+2. **Profile Generator (Agent 2)** - generates 10 realistic executive profiles drawn from the market map
+3. **Profile Critic (Agent 3)** - evaluates every profile against the brief: confidence score, action recommendation, specific issues, and a one-line tracker note
+4. **Exporter (Agent 4)** - merges profiles + critique into Google Sheets or CSV (All Profiles + Flagged tabs)
 
 This isn't a replacement for Lee or any existing platform. It's a research co-pilot that runs *before* sourcing — compressing 2–3 hours of manual market research into a structured, human-reviewable deliverable.
 
