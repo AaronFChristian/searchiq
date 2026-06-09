@@ -213,7 +213,7 @@ searchiq/
 ## What I'd build next
 
 - **Web scraping layer** before Agent 1: pull real company headcount, funding rounds, and recent finance hire signals from LinkedIn/Crunchbase to ground the market map in live data
-- **Candidate verification agent**: cross-reference profile credentials against public sources (LinkedIn, SEC filings, press releases) — catches the Kabbage price error automatically
+- **Candidate verification agent**: cross-reference profile credentials against public sources (LinkedIn, SEC filings, press releases) - catches the Kabbage price error automatically
 - **Prompt eval framework**: systematic testing of prompt versions across 20+ briefs with quality scoring, so iteration is data-driven rather than intuition-driven
 - **Integration with ATS/CRM** (e.g. Thrive): auto-populate reviewer notes and confidence scores directly into the search tracker after critique
 
