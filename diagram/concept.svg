@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" font-family="Helvetica, Arial, sans-serif">
+  <rect width="1200" height="660" fill="#FFFFFF"/>
+
+  <text x="600" y="38" text-anchor="middle" font-size="22" font-weight="700" fill="#0F172A">SearchIQ - The Trust Stack</text>
+  <text x="600" y="62" text-anchor="middle" font-size="13" fill="#64748B">Every output passes through three distinct layers of correctness. Each layer has a different owner and a different confidence level.</text>
+
+  <!-- Layer 3: Factual (top, narrowest) -->
+  <polygon points="430,100 770,100 720,210 480,210" fill="#FCEBEB" stroke="#F09595"/>
+  <text x="600" y="140" text-anchor="middle" font-size="14" font-weight="700" fill="#791F1F">LAYER 3 - FACTUAL CORRECTNESS</text>
+  <text x="600" y="164" text-anchor="middle" font-size="11" fill="#A32D2D">"Is this specific fact true in the world?"</text>
+  <text x="600" y="186" text-anchor="middle" font-size="10" fill="#A32D2D">e.g. Kabbage sold for $850M, not $135M</text>
+
+  <!-- Layer 2: Logical (middle) -->
+  <polygon points="480,210 720,210 660,330 540,330" fill="#FAEEDA" stroke="#EF9F27"/>
+  <text x="600" y="252" text-anchor="middle" font-size="14" font-weight="700" fill="#633806">LAYER 2 - LOGICAL CORRECTNESS</text>
+  <text x="600" y="276" text-anchor="middle" font-size="11" fill="#854F0B">"Is this claim internally consistent</text>
+  <text x="600" y="294" text-anchor="middle" font-size="11" fill="#854F0B">and substantiated within the brief?"</text>
+  <text x="600" y="316" text-anchor="middle" font-size="10" fill="#854F0B">e.g. seniority claim vs title held</text>
+
+  <!-- Layer 1: Structural (bottom, widest) -->
+  <polygon points="540,330 660,330 730,460 470,460" fill="#E1F5EE" stroke="#5DCAA5"/>
+  <text x="600" y="370" text-anchor="middle" font-size="14" font-weight="700" fill="#085041">LAYER 1 - STRUCTURAL CORRECTNESS</text>
+  <text x="600" y="394" text-anchor="middle" font-size="11" fill="#0F6E56">"Does this output match the</text>
+  <text x="600" y="412" text-anchor="middle" font-size="11" fill="#0F6E56">required schema shape?"</text>
+  <text x="600" y="436" text-anchor="middle" font-size="10" fill="#0F6E56">e.g. all required fields present, valid enums</text>
+
+  <!-- Owner boxes left side, connected to each layer -->
+  <rect x="40" y="108" width="280" height="94" rx="8" fill="#FFFFFF" stroke="#F09595"/>
+  <text x="60" y="132" font-size="11" font-weight="700" fill="#791F1F">Owner: Human + external source</text>
+  <text x="60" y="152" font-size="10" fill="#A32D2D">SEC filings, LinkedIn, Crunchbase,</text>
+  <text x="60" y="168" font-size="10" fill="#A32D2D">press releases</text>
+  <text x="60" y="188" font-size="10" font-weight="700" fill="#A32D2D">Status: NOT YET AUTOMATED</text>
+  <path d="M320 155 L425 155" stroke="#F09595" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arrow3)"/>
+
+  <rect x="40" y="222" width="280" height="94" rx="8" fill="#FFFFFF" stroke="#EF9F27"/>
+  <text x="60" y="246" font-size="11" font-weight="700" fill="#633806">Owner: Agent 3 - Profile Critic</text>
+  <text x="60" y="266" font-size="10" fill="#854F0B">5-criteria reasoning check against</text>
+  <text x="60" y="282" font-size="10" fill="#854F0B">the original brief, run on claude-sonnet-4-6</text>
+  <text x="60" y="302" font-size="10" font-weight="700" fill="#3B6D11">Status: IMPLEMENTED</text>
+  <path d="M320 269 L475 269" stroke="#EF9F27" stroke-width="2" marker-end="url(#arrow3)"/>
+
+  <rect x="40" y="342" width="280" height="94" rx="8" fill="#FFFFFF" stroke="#5DCAA5"/>
+  <text x="60" y="366" font-size="11" font-weight="700" fill="#085041">Owner: schemas/schemas.py</text>
+  <text x="60" y="386" font-size="10" fill="#0F6E56">Automatic validation + retry loop,</text>
+  <text x="60" y="402" font-size="10" fill="#0F6E56">no model judgement required</text>
+  <text x="60" y="422" font-size="10" font-weight="700" fill="#3B6D11">Status: IMPLEMENTED</text>
+  <path d="M320 389 L535 410" stroke="#5DCAA5" stroke-width="2" marker-end="url(#arrow3)"/>
+
+  <!-- Confidence meter right side -->
+  <rect x="880" y="108" width="280" height="328" rx="8" fill="#F8FAFC" stroke="#E2E8F0"/>
+  <text x="1020" y="134" text-anchor="middle" font-size="12" font-weight="700" fill="#0F172A">CONFIDENCE BY LAYER</text>
+
+  <text x="900" y="170" font-size="10" fill="#791F1F">Factual</text>
+  <rect x="900" y="178" width="240" height="14" rx="7" fill="#FCEBEB"/>
+  <rect x="900" y="178" width="48" height="14" rx="7" fill="#E24B4A"/>
+  <text x="1148" y="189" font-size="9" fill="#A32D2D">low</text>
+
+  <text x="900" y="222" font-size="10" fill="#633806">Logical</text>
+  <rect x="900" y="230" width="240" height="14" rx="7" fill="#FAEEDA"/>
+  <rect x="900" y="230" width="156" height="14" rx="7" fill="#EF9F27"/>
+  <text x="1148" y="241" font-size="9" fill="#854F0B">medium-high</text>
+
+  <text x="900" y="274" font-size="10" fill="#085041">Structural</text>
+  <rect x="900" y="282" width="240" height="14" rx="7" fill="#E1F5EE"/>
+  <rect x="900" y="282" width="240" height="14" rx="7" fill="#5DCAA5"/>
+  <text x="1148" y="293" font-size="9" fill="#0F6E56">verified</text>
+
+  <line x1="900" y1="320" x2="1140" y2="320" stroke="#E2E8F0"/>
+  <text x="900" y="346" font-size="10" font-weight="700" fill="#334155">Why this matters:</text>
+  <text x="900" y="364" font-size="9" fill="#64748B">A confident-sounding output can be</text>
+  <text x="900" y="378" font-size="9" fill="#64748B">structurally perfect and logically sound</text>
+  <text x="900" y="392" font-size="9" fill="#64748B">while still containing a factual error -</text>
+  <text x="900" y="406" font-size="9" fill="#64748B">exactly what happened with the</text>
+  <text x="900" y="420" font-size="9" fill="#64748B">Kabbage acquisition price in profile #10.</text>
+
+  <!-- Bottom: real example trace -->
+  <rect x="40" y="490" width="1120" height="150" rx="8" fill="#0F172A"/>
+  <text x="60" y="518" font-size="12" font-weight="700" fill="#FFFFFF">Real example from a pipeline run</text>
+
+  <rect x="60" y="532" width="340" height="90" rx="6" fill="#1E293B"/>
+  <text x="76" y="554" font-size="10" font-weight="700" fill="#5DCAA5">Layer 1 - PASSED</text>
+  <text x="76" y="572" font-size="9" fill="#CBD5E1">Profile #10 had all required fields:</text>
+  <text x="76" y="586" font-size="9" fill="#CBD5E1">profile_id, credentials, why_they_fit,</text>
+  <text x="76" y="600" font-size="9" fill="#CBD5E1">probe questions all present and typed correctly</text>
+
+  <rect x="420" y="532" width="340" height="90" rx="6" fill="#1E293B"/>
+  <text x="436" y="554" font-size="10" font-weight="700" fill="#EF9F27">Layer 2 - FLAGGED (medium confidence)</text>
+  <text x="436" y="572" font-size="9" fill="#CBD5E1">Critic marked the Kabbage credential as</text>
+  <text x="436" y="586" font-size="9" fill="#CBD5E1">"requires verification" - the figure looked</text>
+  <text x="436" y="600" font-size="9" fill="#CBD5E1">inconsistent with the scale of the deal described</text>
+
+  <rect x="780" y="532" width="340" height="90" rx="6" fill="#1E293B"/>
+  <text x="796" y="554" font-size="10" font-weight="700" fill="#E24B4A">Layer 3 - ERROR FOUND (manual check)</text>
+  <text x="796" y="572" font-size="9" fill="#CBD5E1">Actual acquisition price was $850M.</text>
+  <text x="796" y="586" font-size="9" fill="#CBD5E1">Pipeline stated $135M. Confirmed via</text>
+  <text x="796" y="600" font-size="9" fill="#CBD5E1">external search - the gap this layer needs to close</text>
+
+  <defs>
+    <marker id="arrow3" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L6,3 z" fill="#94A3B8"/>
+    </marker>
+  </defs>
+</svg>

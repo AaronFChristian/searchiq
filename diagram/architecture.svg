@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" font-family="Helvetica, Arial, sans-serif">
+  <rect width="1200" height="760" fill="#FFFFFF"/>
+
+  <text x="600" y="40" text-anchor="middle" font-size="22" font-weight="700" fill="#0F172A">SearchIQ - System Architecture</text>
+  <text x="600" y="64" text-anchor="middle" font-size="13" fill="#64748B">Four-agent pipeline with provider-agnostic model layer and schema-validated handoffs</text>
+
+  <!-- INPUT LAYER -->
+  <rect x="430" y="90" width="340" height="56" rx="8" fill="#F1F5F9" stroke="#CBD5E1"/>
+  <text x="600" y="113" text-anchor="middle" font-size="13" font-weight="700" fill="#0F172A">INPUT LAYER</text>
+  <text x="600" y="133" text-anchor="middle" font-size="12" fill="#334155">Role brief (plain English text)</text>
+
+  <line x1="600" y1="146" x2="600" y2="174" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ORCHESTRATION LAYER -->
+  <rect x="330" y="176" width="540" height="58" rx="8" fill="#0F172A"/>
+  <text x="600" y="200" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF">ORCHESTRATION LAYER</text>
+  <text x="600" y="221" text-anchor="middle" font-size="12" fill="#CBD5E1">run_day1.py  /  run_day2.py  /  app.py (Streamlit)</text>
+
+  <line x1="600" y1="234" x2="600" y2="262" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- AGENT SERVICE LAYER LABEL -->
+  <text x="60" y="290" font-size="12" font-weight="700" fill="#64748B">AGENT SERVICES</text>
+  <rect x="40" y="262" width="900" height="240" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-dasharray="4 4"/>
+
+  <!-- Agent 1 -->
+  <rect x="60" y="300" width="195" height="178" rx="8" fill="#E1F5EE" stroke="#5DCAA5"/>
+  <text x="157" y="328" text-anchor="middle" font-size="13" font-weight="700" fill="#085041">Agent 1</text>
+  <text x="157" y="346" text-anchor="middle" font-size="11" font-weight="700" fill="#085041">Market Mapper</text>
+  <rect x="80" y="358" width="155" height="22" rx="11" fill="#FFFFFF"/>
+  <text x="157" y="373" text-anchor="middle" font-size="10" fill="#0F6E56" font-weight="700">claude-haiku-4-5</text>
+  <text x="157" y="400" text-anchor="middle" font-size="10" fill="#0F6E56">Tiered company list</text>
+  <text x="157" y="416" text-anchor="middle" font-size="10" fill="#0F6E56">Talent pools</text>
+  <text x="157" y="432" text-anchor="middle" font-size="10" fill="#0F6E56">Comp range</text>
+  <text x="157" y="448" text-anchor="middle" font-size="10" fill="#0F6E56">Search notes</text>
+  <rect x="80" y="458" width="155" height="2" fill="#5DCAA5"/>
+  <text x="157" y="472" text-anchor="middle" font-size="9" fill="#0F6E56" font-style="italic">swap to Gemini 2.0</text>
+
+  <!-- Agent 2 -->
+  <rect x="270" y="300" width="195" height="178" rx="8" fill="#EEEDFE" stroke="#AFA9EC"/>
+  <text x="367" y="328" text-anchor="middle" font-size="13" font-weight="700" fill="#3C3489">Agent 2</text>
+  <text x="367" y="346" text-anchor="middle" font-size="11" font-weight="700" fill="#3C3489">Profile Generator</text>
+  <rect x="290" y="358" width="155" height="22" rx="11" fill="#FFFFFF"/>
+  <text x="367" y="373" text-anchor="middle" font-size="10" fill="#534AB7" font-weight="700">claude-sonnet-4-6</text>
+  <text x="367" y="400" text-anchor="middle" font-size="10" fill="#534AB7">10 candidate profiles</text>
+  <text x="367" y="416" text-anchor="middle" font-size="10" fill="#534AB7">Credentials + scope</text>
+  <text x="367" y="432" text-anchor="middle" font-size="10" fill="#534AB7">Brief-specific fit</text>
+  <text x="367" y="448" text-anchor="middle" font-size="10" fill="#534AB7">Probe questions</text>
+  <rect x="290" y="458" width="155" height="2" fill="#AFA9EC"/>
+  <text x="367" y="472" text-anchor="middle" font-size="9" fill="#534AB7" font-style="italic">swap to GPT-4o-mini</text>
+
+  <!-- Agent 3 -->
+  <rect x="480" y="300" width="195" height="178" rx="8" fill="#FAECE7" stroke="#F0997B"/>
+  <text x="577" y="328" text-anchor="middle" font-size="13" font-weight="700" fill="#712B13">Agent 3</text>
+  <text x="577" y="346" text-anchor="middle" font-size="11" font-weight="700" fill="#712B13">Profile Critic</text>
+  <rect x="500" y="358" width="155" height="22" rx="11" fill="#FFFFFF"/>
+  <text x="577" y="373" text-anchor="middle" font-size="10" fill="#993C1D" font-weight="700">claude-sonnet-4-6</text>
+  <text x="577" y="400" text-anchor="middle" font-size="10" fill="#993C1D">Confidence score</text>
+  <text x="577" y="416" text-anchor="middle" font-size="10" fill="#993C1D">Keep / revise / drop</text>
+  <text x="577" y="432" text-anchor="middle" font-size="10" fill="#993C1D">Issues + strengths</text>
+  <text x="577" y="448" text-anchor="middle" font-size="10" fill="#993C1D">Batch failure pattern</text>
+  <rect x="500" y="458" width="155" height="2" fill="#F0997B"/>
+  <text x="577" y="472" text-anchor="middle" font-size="9" fill="#993C1D" font-style="italic">evaluation layer</text>
+
+  <!-- Agent 4 -->
+  <rect x="690" y="300" width="195" height="178" rx="8" fill="#FAEEDA" stroke="#EF9F27"/>
+  <text x="787" y="328" text-anchor="middle" font-size="13" font-weight="700" fill="#633806">Agent 4</text>
+  <text x="787" y="346" text-anchor="middle" font-size="11" font-weight="700" fill="#633806">Exporter</text>
+  <rect x="710" y="358" width="155" height="22" rx="11" fill="#FFFFFF"/>
+  <text x="787" y="373" text-anchor="middle" font-size="10" fill="#854F0B" font-weight="700">Python + gspread</text>
+  <text x="787" y="400" text-anchor="middle" font-size="10" fill="#854F0B">All Profiles tab</text>
+  <text x="787" y="416" text-anchor="middle" font-size="10" fill="#854F0B">Flagged tab</text>
+  <text x="787" y="432" text-anchor="middle" font-size="10" fill="#854F0B">Batch Summary tab</text>
+  <text x="787" y="448" text-anchor="middle" font-size="10" fill="#854F0B">CSV fallback</text>
+  <rect x="710" y="458" width="155" height="2" fill="#EF9F27"/>
+  <text x="787" y="472" text-anchor="middle" font-size="9" fill="#854F0B" font-style="italic">Sheets or local CSV</text>
+
+  <!-- Connectors between agents with schema labels -->
+  <line x1="255" y1="389" x2="270" y2="389" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="222" y="245" width="116" height="20" rx="4" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="280" y="259" text-anchor="middle" font-size="9" fill="#64748B">market_map JSON</text>
+  <line x1="280" y1="265" x2="280" y2="300" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <line x1="465" y1="389" x2="480" y2="389" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="432" y="245" width="116" height="20" rx="4" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="490" y="259" text-anchor="middle" font-size="9" fill="#64748B">profiles[ ] JSON</text>
+  <line x1="490" y1="265" x2="490" y2="300" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <line x1="675" y1="389" x2="690" y2="389" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="642" y="245" width="116" height="20" rx="4" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="700" y="259" text-anchor="middle" font-size="9" fill="#64748B">critique JSON</text>
+  <line x1="700" y1="265" x2="700" y2="300" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- SHARED INFRASTRUCTURE SIDE PANEL -->
+  <rect x="960" y="262" width="200" height="240" rx="10" fill="#F8FAFC" stroke="#E2E8F0"/>
+  <text x="1060" y="288" text-anchor="middle" font-size="12" font-weight="700" fill="#0F172A">SHARED INFRASTRUCTURE</text>
+
+  <rect x="980" y="302" width="160" height="40" rx="6" fill="#FFFFFF" stroke="#CBD5E1"/>
+  <text x="1060" y="318" text-anchor="middle" font-size="10" font-weight="700" fill="#334155">config.py</text>
+  <text x="1060" y="333" text-anchor="middle" font-size="9" fill="#64748B">Provider + model switches</text>
+
+  <rect x="980" y="350" width="160" height="40" rx="6" fill="#FFFFFF" stroke="#CBD5E1"/>
+  <text x="1060" y="366" text-anchor="middle" font-size="10" font-weight="700" fill="#334155">schemas/schemas.py</text>
+  <text x="1060" y="381" text-anchor="middle" font-size="9" fill="#64748B">Contract validation</text>
+
+  <rect x="980" y="398" width="160" height="40" rx="6" fill="#FFFFFF" stroke="#CBD5E1"/>
+  <text x="1060" y="414" text-anchor="middle" font-size="10" font-weight="700" fill="#334155">utils.py</text>
+  <text x="1060" y="429" text-anchor="middle" font-size="9" fill="#64748B">JSON extract + retry logic</text>
+
+  <rect x="980" y="446" width="160" height="40" rx="6" fill="#FFFFFF" stroke="#CBD5E1"/>
+  <text x="1060" y="462" text-anchor="middle" font-size="10" font-weight="700" fill="#334155">prompts/prompts.py</text>
+  <text x="1060" y="477" text-anchor="middle" font-size="9" fill="#64748B">Versioned prompts v1 to v2</text>
+
+  <!-- Connector from agents down to output -->
+  <line x1="600" y1="502" x2="600" y2="530" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- OUTPUT LAYER -->
+  <rect x="60" y="532" width="1100" height="180" rx="10" fill="#FFFFFF" stroke="#E2E8F0" stroke-dasharray="4 4"/>
+  <text x="100" y="558" font-size="12" font-weight="700" fill="#64748B">OUTPUT LAYER</text>
+
+  <rect x="100" y="572" width="280" height="120" rx="8" fill="#EAF3DE" stroke="#97C459"/>
+  <text x="240" y="600" text-anchor="middle" font-size="12" font-weight="700" fill="#27500A">Google Sheets</text>
+  <text x="240" y="622" text-anchor="middle" font-size="10" fill="#3B6D11">3 tabs: All Profiles,</text>
+  <text x="240" y="638" text-anchor="middle" font-size="10" fill="#3B6D11">Flagged for Review,</text>
+  <text x="240" y="654" text-anchor="middle" font-size="10" fill="#3B6D11">Batch Summary</text>
+  <text x="240" y="675" text-anchor="middle" font-size="9" fill="#639922" font-style="italic">color-coded confidence</text>
+
+  <rect x="410" y="572" width="280" height="120" rx="8" fill="#E6F1FB" stroke="#85B7EB"/>
+  <text x="550" y="600" text-anchor="middle" font-size="12" font-weight="700" fill="#0C447C">CSV fallback</text>
+  <text x="550" y="622" text-anchor="middle" font-size="10" fill="#185FA5">all_profiles.csv</text>
+  <text x="550" y="638" text-anchor="middle" font-size="10" fill="#185FA5">flagged.csv</text>
+  <text x="550" y="654" text-anchor="middle" font-size="10" fill="#185FA5">summary.json</text>
+  <text x="550" y="675" text-anchor="middle" font-size="9" fill="#378ADD" font-style="italic">automatic if Sheets not configured</text>
+
+  <rect x="720" y="572" width="280" height="120" rx="8" fill="#F1EFE8" stroke="#B4B2A9"/>
+  <text x="860" y="600" text-anchor="middle" font-size="12" font-weight="700" fill="#2C2C2A">Pipeline JSON</text>
+  <text x="860" y="622" text-anchor="middle" font-size="10" fill="#5F5E5A">day1_combined.json</text>
+  <text x="860" y="638" text-anchor="middle" font-size="10" fill="#5F5E5A">day2_full_pipeline.json</text>
+  <text x="860" y="654" text-anchor="middle" font-size="10" fill="#5F5E5A">per-agent run logs</text>
+  <text x="860" y="675" text-anchor="middle" font-size="9" fill="#888780" font-style="italic">full audit trail of every run</text>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L6,3 z" fill="#94A3B8"/>
+    </marker>
+  </defs>
+</svg>

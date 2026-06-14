@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" font-family="Helvetica, Arial, sans-serif">
+  <rect width="1200" height="620" fill="#FFFFFF"/>
+
+  <text x="600" y="38" text-anchor="middle" font-size="22" font-weight="700" fill="#0F172A">SearchIQ - Data Flow</text>
+  <text x="600" y="62" text-anchor="middle" font-size="13" fill="#64748B">How a single role brief becomes a validated, exportable candidate slate</text>
+
+  <!-- Stage 1: Input -->
+  <rect x="30" y="100" width="200" height="160" rx="8" fill="#F8FAFC" stroke="#CBD5E1"/>
+  <rect x="30" y="100" width="200" height="32" rx="8" fill="#0F172A"/>
+  <text x="130" y="121" text-anchor="middle" font-size="11" font-weight="700" fill="#FFFFFF">STAGE 0 - INPUT</text>
+  <text x="48" y="156" font-size="10" font-family="monospace" fill="#334155">role_brief:</text>
+  <text x="48" y="174" font-size="9" font-family="monospace" fill="#64748B">"CFO search for</text>
+  <text x="48" y="188" font-size="9" font-family="monospace" fill="#64748B"> Series C fintech,</text>
+  <text x="48" y="202" font-size="9" font-family="monospace" fill="#64748B"> $120M ARR, SMB</text>
+  <text x="48" y="216" font-size="9" font-family="monospace" fill="#64748B"> lending, IPO path"</text>
+  <text x="48" y="244" font-size="9" fill="#94A3B8" font-style="italic">Plain English string</text>
+
+  <path d="M232 180 L262 180" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrow2)"/>
+  <text x="247" y="172" text-anchor="middle" font-size="9" fill="#0F6E56" font-weight="700">Agent 1</text>
+
+  <!-- Stage 2: market_map -->
+  <rect x="264" y="100" width="220" height="280" rx="8" fill="#F8FAFC" stroke="#5DCAA5"/>
+  <rect x="264" y="100" width="220" height="32" rx="8" fill="#0F6E56"/>
+  <text x="374" y="121" text-anchor="middle" font-size="11" font-weight="700" fill="#FFFFFF">STAGE 1 - MARKET MAP</text>
+  <text x="282" y="156" font-size="10" font-family="monospace" fill="#085041">{</text>
+  <text x="294" y="172" font-size="9" font-family="monospace" fill="#085041">target_companies: [</text>
+  <text x="306" y="188" font-size="9" font-family="monospace" fill="#0F6E56">{name, tier,</text>
+  <text x="306" y="202" font-size="9" font-family="monospace" fill="#0F6E56"> rationale,</text>
+  <text x="306" y="216" font-size="9" font-family="monospace" fill="#0F6E56"> suggested_titles}</text>
+  <text x="306" y="232" font-size="9" font-family="monospace" fill="#0F6E56">x 12</text>
+  <text x="294" y="248" font-size="9" font-family="monospace" fill="#085041">],</text>
+  <text x="294" y="264" font-size="9" font-family="monospace" fill="#085041">talent_pools: [...] x3,</text>
+  <text x="294" y="280" font-size="9" font-family="monospace" fill="#085041">comp_range: "...",</text>
+  <text x="294" y="296" font-size="9" font-family="monospace" fill="#085041">search_notes: "..."</text>
+  <text x="282" y="312" font-size="10" font-family="monospace" fill="#085041">}</text>
+  <rect x="282" y="328" width="184" height="40" rx="4" fill="#E1F5EE"/>
+  <text x="374" y="343" text-anchor="middle" font-size="9" fill="#0F6E56" font-weight="700">validated against</text>
+  <text x="374" y="358" text-anchor="middle" font-size="9" fill="#0F6E56">MARKET_MAP_SCHEMA</text>
+
+  <path d="M486 240 L516 240" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrow2)"/>
+  <text x="501" y="232" text-anchor="middle" font-size="9" fill="#534AB7" font-weight="700">Agent 2</text>
+
+  <!-- Stage 3: profiles -->
+  <rect x="518" y="100" width="230" height="400" rx="8" fill="#F8FAFC" stroke="#AFA9EC"/>
+  <rect x="518" y="100" width="230" height="32" rx="8" fill="#3C3489"/>
+  <text x="633" y="121" text-anchor="middle" font-size="11" font-weight="700" fill="#FFFFFF">STAGE 2 - PROFILES</text>
+  <text x="536" y="156" font-size="10" font-family="monospace" fill="#3C3489">[ // 10 profiles</text>
+  <text x="548" y="172" font-size="9" font-family="monospace" fill="#534AB7">{</text>
+  <text x="560" y="188" font-size="9" font-family="monospace" fill="#534AB7">profile_id, name,</text>
+  <text x="560" y="204" font-size="9" font-family="monospace" fill="#534AB7">current_title,</text>
+  <text x="560" y="220" font-size="9" font-family="monospace" fill="#534AB7">current_company,</text>
+  <text x="560" y="236" font-size="9" font-family="monospace" fill="#534AB7">career_summary,</text>
+  <text x="560" y="252" font-size="9" font-family="monospace" fill="#534AB7">key_credentials: [],</text>
+  <text x="560" y="268" font-size="9" font-family="monospace" fill="#534AB7">why_they_fit,</text>
+  <text x="560" y="284" font-size="9" font-family="monospace" fill="#534AB7">questions_to_probe: []</text>
+  <text x="548" y="300" font-size="9" font-family="monospace" fill="#534AB7">}</text>
+  <text x="536" y="316" font-size="10" font-family="monospace" fill="#3C3489">]</text>
+  <rect x="536" y="332" width="194" height="56" rx="4" fill="#EEEDFE"/>
+  <text x="633" y="348" text-anchor="middle" font-size="9" fill="#534AB7" font-weight="700">grounded in market_map</text>
+  <text x="633" y="364" text-anchor="middle" font-size="9" fill="#534AB7">target_companies, validated</text>
+  <text x="633" y="380" text-anchor="middle" font-size="9" fill="#534AB7">against PROFILE_SCHEMA</text>
+
+  <path d="M750 300 L780 300" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrow2)"/>
+  <text x="765" y="292" text-anchor="middle" font-size="9" fill="#993C1D" font-weight="700">Agent 3</text>
+
+  <!-- Stage 4: critique -->
+  <rect x="782" y="100" width="230" height="460" rx="8" fill="#F8FAFC" stroke="#F0997B"/>
+  <rect x="782" y="100" width="230" height="32" rx="8" fill="#712B13"/>
+  <text x="897" y="121" text-anchor="middle" font-size="11" font-weight="700" fill="#FFFFFF">STAGE 3 - CRITIQUE</text>
+  <text x="800" y="156" font-size="10" font-family="monospace" fill="#712B13">{</text>
+  <text x="812" y="172" font-size="9" font-family="monospace" fill="#712B13">critiques: [</text>
+  <text x="824" y="188" font-size="9" font-family="monospace" fill="#993C1D">{profile_id,</text>
+  <text x="824" y="204" font-size="9" font-family="monospace" fill="#993C1D"> confidence,</text>
+  <text x="824" y="220" font-size="9" font-family="monospace" fill="#993C1D"> action,</text>
+  <text x="824" y="236" font-size="9" font-family="monospace" fill="#993C1D"> issues: [],</text>
+  <text x="824" y="252" font-size="9" font-family="monospace" fill="#993C1D"> strengths: [],</text>
+  <text x="824" y="268" font-size="9" font-family="monospace" fill="#993C1D"> reviewer_note}</text>
+  <text x="824" y="284" font-size="9" font-family="monospace" fill="#993C1D">x 10</text>
+  <text x="812" y="300" font-size="9" font-family="monospace" fill="#712B13">],</text>
+  <text x="812" y="316" font-size="9" font-family="monospace" fill="#712B13">batch_summary: {</text>
+  <text x="824" y="332" font-size="9" font-family="monospace" fill="#993C1D">overall_quality,</text>
+  <text x="824" y="348" font-size="9" font-family="monospace" fill="#993C1D">top_3_profiles: [],</text>
+  <text x="824" y="364" font-size="9" font-family="monospace" fill="#993C1D">failure_pattern</text>
+  <text x="812" y="380" font-size="9" font-family="monospace" fill="#712B13">}</text>
+  <text x="800" y="396" font-size="10" font-family="monospace" fill="#712B13">}</text>
+  <rect x="800" y="412" width="194" height="56" rx="4" fill="#FAECE7"/>
+  <text x="897" y="428" text-anchor="middle" font-size="9" fill="#993C1D" font-weight="700">5-criteria evaluation</text>
+  <text x="897" y="444" text-anchor="middle" font-size="9" fill="#993C1D">against original brief,</text>
+  <text x="897" y="460" text-anchor="middle" font-size="9" fill="#993C1D">validated against CRITIQUE_SCHEMA</text>
+
+  <path d="M1014 320 L1044 320" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrow2)"/>
+  <text x="1029" y="312" text-anchor="middle" font-size="9" fill="#854F0B" font-weight="700">Agent 4</text>
+
+  <!-- Stage 5: export -->
+  <rect x="1046" y="100" width="124" height="400" rx="8" fill="#F8FAFC" stroke="#EF9F27"/>
+  <rect x="1046" y="100" width="124" height="32" rx="8" fill="#633806"/>
+  <text x="1108" y="121" text-anchor="middle" font-size="11" font-weight="700" fill="#FFFFFF">STAGE 4</text>
+  <text x="1108" y="160" text-anchor="middle" font-size="10" font-weight="700" fill="#633806">EXPORT</text>
+  <rect x="1062" y="174" width="92" height="60" rx="4" fill="#FAEEDA"/>
+  <text x="1108" y="194" text-anchor="middle" font-size="9" font-weight="700" fill="#854F0B">All Profiles</text>
+  <text x="1108" y="210" text-anchor="middle" font-size="8" fill="#854F0B">10 merged rows</text>
+  <text x="1108" y="224" font-size="8" fill="#854F0B" text-anchor="middle">profile + critique</text>
+
+  <rect x="1062" y="244" width="92" height="60" rx="4" fill="#FAEEDA"/>
+  <text x="1108" y="264" text-anchor="middle" font-size="9" font-weight="700" fill="#854F0B">Flagged</text>
+  <text x="1108" y="280" text-anchor="middle" font-size="8" fill="#854F0B">revise / drop</text>
+  <text x="1108" y="294" font-size="8" fill="#854F0B" text-anchor="middle">rows only</text>
+
+  <rect x="1062" y="314" width="92" height="60" rx="4" fill="#FAEEDA"/>
+  <text x="1108" y="334" text-anchor="middle" font-size="9" font-weight="700" fill="#854F0B">Summary</text>
+  <text x="1108" y="350" text-anchor="middle" font-size="8" fill="#854F0B">quality, top 3,</text>
+  <text x="1108" y="364" font-size="8" fill="#854F0B" text-anchor="middle">failure pattern</text>
+
+  <rect x="1062" y="384" width="92" height="100" rx="4" fill="#EAF3DE"/>
+  <text x="1108" y="404" text-anchor="middle" font-size="9" font-weight="700" fill="#27500A">Destination</text>
+  <text x="1108" y="424" text-anchor="middle" font-size="8" fill="#3B6D11">Google Sheets</text>
+  <text x="1108" y="438" text-anchor="middle" font-size="8" fill="#3B6D11">(3 tabs)</text>
+  <text x="1108" y="458" text-anchor="middle" font-size="8" fill="#3B6D11">or CSV fallback</text>
+  <text x="1108" y="472" text-anchor="middle" font-size="8" fill="#3B6D11">automatic</text>
+
+  <!-- Bottom legend: retry loop -->
+  <rect x="30" y="540" width="1140" height="60" rx="8" fill="#FEF2F2" stroke="#F09595"/>
+  <text x="50" y="563" font-size="11" font-weight="700" fill="#791F1F">Self-healing loop:</text>
+  <text x="50" y="582" font-size="10" fill="#A32D2D">If any stage fails schema validation, the validation errors are appended to that agent's prompt and the call retries (max 2 attempts) before the pipeline fails loudly.</text>
+
+  <defs>
+    <marker id="arrow2" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L6,3 z" fill="#94A3B8"/>
+    </marker>
+  </defs>
+</svg>
