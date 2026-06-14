@@ -1,188 +1,114 @@
 # SearchIQ
 
-**AI-powered executive research co-pilot** - from role brief to evaluated candidate pipeline in under 5 minutes.
+**A multi-agent AI pipeline that turns a plain-English hiring brief into an evaluated, export-ready candidate slate.**
 
-Built in 3 days as a demonstration project for SPMB's AI Data Analyst role.
-
----
-
-## What it does
-
-SearchIQ runs a 4-agent pipeline that automates the most time-intensive parts of an executive search:
-
-1. **Market Mapper (Agent 1)** - takes a role brief and returns a tiered company target list, talent pools, comp range, and search notes
-2. **Profile Generator (Agent 2)** - generates 10 realistic executive profiles drawn from the market map
-3. **Profile Critic (Agent 3)** - evaluates every profile against the brief: confidence score, action recommendation, specific issues, and a one-line tracker note
-4. **Exporter (Agent 4)** - merges profiles + critique into Google Sheets or CSV (All Profiles + Flagged tabs)
-
-This isn't a replacement for Lee or any existing platform. It's a research co-pilot that runs *before* sourcing — compressing 2–3 hours of manual market research into a structured, human-reviewable deliverable.
+![Python](https://img.shields.io/badge/Python-3.12-blue)
+![Claude](https://img.shields.io/badge/Claude-Sonnet%204.6%20%2F%20Haiku%204.5-8A63D2)
+![Streamlit](https://img.shields.io/badge/UI-Streamlit-FF4B4B)
+![License](https://img.shields.io/badge/license-MIT-green)
 
 ---
 
-## Sample output
+## Problem statement
 
-**Role brief used:** CFO search at a Series C fintech ($120M ARR, SMB embedded lending, Series D + IPO path)
+Executive and technical research teams spend hours on three repetitive steps for every search: mapping which companies and talent pools to target, drafting candidate profiles that match the brief, and then manually reviewing those profiles for quality before anything goes to a client or hiring manager.
 
-**Agent 1 output (excerpt):**
-```
-Comp range: $425k–$575k base + 15–25% bonus + 1.0–1.5% fully diluted equity
-Primary targets: Stripe, Brex, Affirm, Pipe
-Talent pools: Series C/D Fintech CFOs, Big-4 Fintech M&A, Late-Stage SaaS Finance Leaders
-```
+SearchIQ automates that loop end to end, then adds a step most AI tools skip entirely: a dedicated evaluation agent that audits the AI's own output, flags weak or unsubstantiated claims, and tells you exactly what to fix before you ship it.
 
-**Agent 3 batch summary:**
-```
-Overall quality: MIXED
-Top 3 to present: #2 Marcus Delacroix, #7 Sandra Okafor, #5 Priya Nambiar
-Failure pattern: Seniority inflation — profiles present VP Finance candidates as CFO-ready
-  by emphasizing employer scope rather than candidate's own independent accountability
-```
+---
 
-**Agent 3 catch (factual error):**
-```
-Profile #10 — Nathaniel Rosenberg
-Issue: Kabbage acquisition price stated as $135M — actual American Express acquisition
-  was $850M. A partner from a16z or Sequoia who knows the transaction will immediately
-  flag this, raising questions about research quality of the entire slate.
-Action: REVISE
-```
+## What it does, in one line per stage
+
+- **Market mapping**: takes a role brief and returns tiered target companies, talent pools, and a comp range
+- **Profile generation**: produces a full slate of candidate profiles grounded in that market map
+- **Output evaluation**: critiques every profile against the brief, scores confidence, and recommends keep, revise, or drop
+- **Export**: merges everything into a formatted Google Sheet or CSV, ready to share
+
+---
+
+## Tech stack
+
+- **AI models**
+  - `claude-haiku-4-5` for fast, broad market synthesis
+  - `claude-sonnet-4-6` for structured generation and evaluative reasoning
+  - optional: `gemini-2.0-flash` and `gpt-4o-mini` as drop-in provider swaps
+- **Python SDKs**
+  - `anthropic` for Claude
+  - `google-genai` for Gemini
+  - `openai` for GPT
+  - `gspread` and `google-auth` for Sheets export
+- **Application layer**
+  - `streamlit` for the interactive demo UI
+  - `python-dotenv` for environment-based configuration
+- **Core Python**
+  - `json` for inter-agent data contracts
+  - `csv` for export fallback
+  - `logging` for per-run audit trails
+
+---
+
+## How it is implemented
+
+- **Agent architecture**: four independent agents, each a single-responsibility Python class with its own prompt, validation rules, and retry logic
+- **Provider abstraction**: every agent reads its model and provider from one config file, so swapping Claude for Gemini or GPT is a two-line change, not a rewrite
+- **Schema contracts**: every agent's output is validated against an explicit JSON schema before it is passed downstream; failed validation triggers a corrective retry with the error fed back into the prompt
+- **Prompt versioning**: every prompt exists in the codebase as v1 and v2, with the v1 limitations documented inline, so the iteration reasoning is visible, not just the final result
+- **Evaluation layer**: the critic agent applies five explicit criteria (title match, accountability ownership, credential specificity, brief-specific fit, domain translation risk) and produces both per-item and batch-level findings
+- **Graceful degradation**: if Google Sheets credentials are not configured, export falls back to CSV automatically with no pipeline failure
 
 ---
 
 ## Architecture
 
-```
-Role brief
-    │
-    ▼
-Agent 1 - Market Mapper        claude-haiku-4-5
-    │  target companies, talent pools, comp range
-    ▼
-Agent 2 — Profile Generator    claude-sonnet-4-6
-    │  10 profiles with credentials, fit assessment, probe questions
-    ▼
-Agent 3 — Profile Critic       claude-sonnet-4-6
-    │  confidence scores, issue flags, reviewer notes, batch summary
-    ▼
-Agent 4 — Exporter
-    │  Google Sheets (3 tabs) or CSV fallback
-    ▼
-outputs/day2_full_pipeline.json
-```
-
-**Why different models per agent:**
-- `claude-haiku-4-5` for Agent 1 — fast and cheap for broad synthesis; market mapping doesn't need deep reasoning
-- `claude-sonnet-4-6` for Agents 2 + 3 — stronger instruction-following for schema-bound generation, and better evaluative reasoning for critique
-- Architecture is provider-agnostic: swap `AGENT1_PROVIDER = "gemini"` in `config.py` to route Agent 1 through Gemini 2.0 Flash once the Generative Language API is enabled
+![SearchIQ architecture diagram](docs/architecture.svg)
 
 ---
 
-## Prompt engineering - v1 vs v2
+## Data flow
 
-Every prompt is versioned in `prompts/prompts.py`. Here's what changed and why:
-
-### Agent 1 - Market Mapper
-
-**v1 problem:** returned generic companies (Goldman Sachs, McKinsey) regardless of the brief. Flat list with no prioritisation.
-
-**v2 changes:**
-- Added `"tier": "primary" | "secondary" | "stretch"` — forces prioritisation signal
-- Added `"suggested_titles"` per company — makes the map actionable immediately
-- Added specificity constraint: *"prefer $500M–$5B companies unless brief specifies otherwise"*
-- Added `comp_range` and `search_notes` fields — v1 had no salary or focus guidance
-
-### Agent 2 - Profile Generator
-
-**v1 problem:** `why_they_fit` was generic ("strong financial background, leadership experience") — applied to every candidate identically.
-
-**v2 changes:**
-- Made `why_they_fit` explicitly brief-specific with a good/bad example in the prompt
-- Added `questions_to_probe` field — forces gap analysis, not just promotional summary
-- Added "no vague claims" constraint with examples: *"good → Led $2.1B Series D... / bad → Extensive experience in capital markets"*
-- Passed `market_map` as context — profiles now draw from the target company list
-
-### Agent 3 - Profile Critic
-
-**v1 problem:** issues were generic strings ("limited experience"), no recommended action, no batch-level pattern detection.
-
-**v2 changes:**
-- Added `"action": "keep" | "revise" | "drop"` — gives the analyst a concrete next step
-- Added `"reviewer_note"` — one sentence matching what you'd write in a search tracker (e.g. Thrive)
-- Required specificity in issues with good/bad examples in the system prompt
-- Added `batch_summary.failure_pattern` — systemic diagnosis across the set, not just individual flags
+![SearchIQ data flow diagram](docs/dataflow.svg)
 
 ---
 
-## Setup
+## The trust stack (what makes this different)
 
-### 1. Clone and install
+Most AI pipelines stop at "the model returned valid JSON." SearchIQ treats that as the easy 10 percent of the problem. The diagram below is the core idea of the project: every output is correct in up to three different senses, and each sense needs a different kind of check.
+
+![SearchIQ trust stack diagram](docs/concept.svg)
+
+A real example from a pipeline run: a generated profile passed schema validation completely (every field present, correctly typed), and passed the critic's logical review (the claim was internally consistent with the rest of the profile), but stated a company acquisition price that was factually wrong by a factor of six. The critic flagged it as "needs verification." Closing that final gap with an automated fact-check layer is the next milestone for this project.
+
+---
+
+## Prompt engineering, shown not just claimed
+
+Every prompt in `prompts/prompts.py` exists in two versions. The v1 prompts are kept as comments alongside an explanation of what went wrong. Example, condensed:
+
+```text
+v1 (market mapper): "Return 10-15 target companies for this role brief"
+  -> kept returning generic Fortune 500 names regardless of brief
+
+v2: added a tier field (primary/secondary/stretch), a suggested_titles
+    array per company, and an explicit constraint:
+    "prefer $500M-$5B companies unless the brief specifies otherwise"
+  -> output became specific and immediately actionable
+```
+
+---
+
+## Running it
 
 ```bash
-git clone https://github.com/yourname/searchiq
+git clone https://github.com/AaronFChristian/searchiq
 cd searchiq
-pip install anthropic openai google-genai gspread python-dotenv streamlit
+pip install -r requirements.txt
+cp .env.example .env   # add your API key(s)
+
+python check_keys.py   # verify keys before spending tokens
+python run_day1.py     # market map + profile generation
+python run_day2.py     # critique + export
+python -m streamlit run app.py   # interactive UI
 ```
-
-### 2. API keys
-
-Copy `.env.example` to `.env` and add your keys:
-
-```
-ANTHROPIC_API_KEY=sk-ant-...     # required
-GEMINI_API_KEY=AIza...           # optional upgrade for Agent 1
-OPENAI_API_KEY=sk-proj-...       # optional upgrade for Agent 2
-```
-
-Validate keys:
-```bash
-python check_keys.py
-```
-
-### 3. Run the pipeline
-
-**Day 1 - Market map + profiles:**
-```bash
-python run_day1.py
-```
-
-**Day 2 - Critique + export:**
-```bash
-python run_day2.py
-```
-
-**Interactive UI:**
-```bash
-streamlit run app.py
-```
-
----
-
-## Google Sheets setup (optional)
-
-1. Go to [console.cloud.google.com](https://console.cloud.google.com) → APIs → Enable **Google Sheets API** and **Google Drive API**
-2. Create a Service Account → download the JSON credentials file
-3. Create a Google Sheet and share it with the service account email (Editor access)
-4. Add to `.env`:
-   ```
-   GOOGLE_SHEETS_CREDS_PATH=/path/to/service_account.json
-   GOOGLE_SHEET_ID=your_sheet_id
-   ```
-
-Without this, `run_day2.py` and `app.py` automatically write CSV to `outputs/`.
-
----
-
-## Enabling Gemini (Agent 1 upgrade)
-
-If Agent 1 returns `API key not valid`:
-1. Go to [console.cloud.google.com](https://console.cloud.google.com)
-2. Select the project linked to your key
-3. Search **Generative Language API** → Enable
-4. Wait 60 seconds, then in `config.py`:
-   ```python
-   AGENT1_PROVIDER = "gemini"
-   AGENT1_MODEL    = "gemini-2.0-flash"
-   ```
 
 ---
 
@@ -190,39 +116,34 @@ If Agent 1 returns `API key not valid`:
 
 ```
 searchiq/
-├── app.py                          # Streamlit UI
-├── run_day1.py                     # CLI: Agent 1 + 2
-├── run_day2.py                     # CLI: Agent 3 + 4 (loads day1 output)
-├── check_keys.py                   # API key validator
-├── config.py                       # Model assignments + provider switches
-├── utils.py                        # JSON extractor, retry logic, run logger
 ├── agents/
-│   ├── agent1_market_mapper.py     # Gemini or Claude
-│   ├── agent2_profile_generator.py # OpenAI or Claude
-│   ├── agent3_profile_critic.py    # Claude Sonnet
-│   └── agent4_exporter.py          # Google Sheets + CSV
-├── prompts/
-│   └── prompts.py                  # All prompts, versioned with v1→v2 diffs
-├── schemas/
-│   └── schemas.py                  # JSON contracts between agents
-└── outputs/                        # Pipeline outputs (gitignored)
+│   ├── agent1_market_mapper.py
+│   ├── agent2_profile_generator.py
+│   ├── agent3_profile_critic.py
+│   └── agent4_exporter.py
+├── prompts/prompts.py        # versioned, v1 and v2 documented
+├── schemas/schemas.py        # JSON contracts between agents
+├── docs/                      # architecture diagrams
+├── outputs/                   # generated run artifacts
+├── app.py                     # Streamlit UI
+├── run_day1.py / run_day2.py  # CLI pipeline runners
+├── check_keys.py
+├── config.py                  # provider + model switches
+└── utils.py
 ```
 
 ---
 
-## What I'd build next
+## What is next
 
-- **Web scraping layer** before Agent 1: pull real company headcount, funding rounds, and recent finance hire signals from LinkedIn/Crunchbase to ground the market map in live data
-- **Candidate verification agent**: cross-reference profile credentials against public sources (LinkedIn, SEC filings, press releases) - catches the Kabbage price error automatically
-- **Prompt eval framework**: systematic testing of prompt versions across 20+ briefs with quality scoring, so iteration is data-driven rather than intuition-driven
-- **Integration with ATS/CRM** (e.g. Thrive): auto-populate reviewer notes and confidence scores directly into the search tracker after critique
+- **Verification agent**: cross-check specific factual claims (acquisition prices, funding rounds, exec tenure) against external sources before export
+- **Report generator**: assemble pipeline output into a polished, narrative search brief document rather than raw rows
+- **Persistence layer**: store run history in SQLite so slates can be compared across searches over time
+- **Human-in-the-loop editing**: allow a reviewer to override critic scores and annotate profiles before export
+- **Eval framework**: run prompt versions against a fixed set of briefs and score outputs systematically, rather than by inspection
 
 ---
 
-## Built with
+## License
 
-- [Anthropic Claude](https://anthropic.com) - claude-haiku-4-5, claude-sonnet-4-6
-- [Google Gemini](https://aistudio.google.com) - gemini-2.0-flash (optional)
-- [OpenAI](https://platform.openai.com) - gpt-4o-mini (optional)
-- [Streamlit](https://streamlit.io) - demo UI
-- [gspread](https://github.com/burnash/gspread) - Google Sheets export
+MIT
