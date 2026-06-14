@@ -60,13 +60,13 @@ SearchIQ automates that loop end to end, then adds a step most AI tools skip ent
 
 ## Architecture
 
-![SearchIQ architecture diagram](docs/architecture.svg)
+![SearchIQ architecture diagram](diagram/architecture.svg)
 
 ---
 
 ## Data flow
 
-![SearchIQ data flow diagram](docs/dataflow.svg)
+![SearchIQ data flow diagram](diagram/dataflow.svg)
 
 ---
 
@@ -74,7 +74,7 @@ SearchIQ automates that loop end to end, then adds a step most AI tools skip ent
 
 Most AI pipelines stop at "the model returned valid JSON." SearchIQ treats that as the easy 10 percent of the problem. The diagram below is the core idea of the project: every output is correct in up to three different senses, and each sense needs a different kind of check.
 
-![SearchIQ trust stack diagram](docs/concept.svg)
+![SearchIQ trust stack diagram](diagram/concept.svg)
 
 A real example from a pipeline run: a generated profile passed schema validation completely (every field present, correctly typed), and passed the critic's logical review (the claim was internally consistent with the rest of the profile), but stated a company acquisition price that was factually wrong by a factor of six. The critic flagged it as "needs verification." Closing that final gap with an automated fact-check layer is the next milestone for this project.
 
